@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Log
 @RestController
 @RequiredArgsConstructor
+@EnableScheduling
 public class P404Controller implements P404ControllerApi {
 
     private final BookService bookService;
@@ -60,5 +63,10 @@ public class P404Controller implements P404ControllerApi {
         if (returnBook.getError() != null) return new ResponseEntity<>(returnBook.getError(), HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>("Book returned", HttpStatus.ACCEPTED);
+    }
+
+    @Scheduled(fixedDelay = 86400000)
+    private void qualityDegrade() {
+        bookService.degradeBooks();
     }
 }

@@ -59,4 +59,12 @@ public class BookServiceImpl implements BookService {
         return ReturnTO.builder().build();
     }
 
+    /**
+     * Process that takes 1 unit of quality to each book in db
+     */
+    @Override
+    public void degradeBooks() {
+        bookRepository.degrade();
+    }
+
 }

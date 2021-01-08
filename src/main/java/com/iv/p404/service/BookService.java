@@ -9,4 +9,5 @@ public interface BookService {
     Optional<Book> save(Book book);
     Optional<Book> rent(Integer id);
     ReturnTO returnBook(Integer id);
+    void degradeBooks();
 }
