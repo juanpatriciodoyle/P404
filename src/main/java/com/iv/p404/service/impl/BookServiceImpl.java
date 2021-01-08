@@ -61,13 +61,20 @@ public class BookServiceImpl implements BookService {
     }
 
     /**
-     * Process that takes 1 unit of quality to each book in db
+     * Process that degrade books
      */
     @Override
-    public void degradeBooks() {
-        bookRepository.degrade(BookType.Standard.ordinal(),1);
-        bookRepository.degrade(BookType.Comics.ordinal(),2);
+    public void degrade(BookType bookType) {
+        bookRepository.degrade(bookType.ordinal());
         bookRepository.deleteOldBooks();
+    }
+
+    /**
+     * Process that enhance books
+     */
+    @Override
+    public void enhance(BookType bookType) {
+        bookRepository.enhance(bookType.ordinal());
     }
 
 }

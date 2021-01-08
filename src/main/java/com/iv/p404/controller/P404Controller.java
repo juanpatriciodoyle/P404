@@ -1,6 +1,7 @@
 package com.iv.p404.controller;
 
 import com.iv.p404.model.Book;
+import com.iv.p404.model.BookType;
 import com.iv.p404.model.Customer;
 import com.iv.p404.service.BookService;
 import com.iv.p404.service.CustomerService;
@@ -66,7 +67,17 @@ public class P404Controller implements P404ControllerApi {
     }
 
     @Scheduled(fixedDelay = 86400000)
-    private void qualityDegrade() {
-        bookService.degradeBooks();
+    private void standardDegrade() {
+        bookService.degrade(BookType.Standard);
+    }
+
+    @Scheduled(fixedDelay = 43200000)
+    private void comicDegrade() {
+        bookService.degrade(BookType.Comics);
+    }
+
+    @Scheduled(fixedDelay = 86400000)
+    private void enhance() {
+        bookService.enhance(BookType.CollectorEdition);
     }
 }
