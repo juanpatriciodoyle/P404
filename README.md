@@ -1,4 +1,4 @@
-# ![pageres](src/main/resources/p404.png)
+# <div align="center">![pageres](src/main/resources/p404.png)</div>
 ![Days](https://img.shields.io/static/v1?label=Working-Days&message=2&color=blue)
 ![Status](https://img.shields.io/static/v1?label=Done&message=100%&color=green)
 
