@@ -1,6 +1,7 @@
 package com.iv.p404.service.impl;
 
 import com.iv.p404.model.Book;
+import com.iv.p404.model.BookType;
 import com.iv.p404.repository.BookRepository;
 import com.iv.p404.service.BookService;
 import com.iv.p404.to.ReturnTO;
@@ -64,7 +65,8 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     public void degradeBooks() {
-        bookRepository.degrade();
+        bookRepository.degrade(BookType.Standard.ordinal(),1);
+        bookRepository.degrade(BookType.Comics.ordinal(),2);
         bookRepository.deleteOldBooks();
     }
 
