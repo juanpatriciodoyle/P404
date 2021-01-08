@@ -8,6 +8,7 @@ import com.iv.p404.to.ReturnTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -75,6 +76,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public void enhance(BookType bookType) {
         bookRepository.enhance(bookType.ordinal());
+    }
+
+    /**
+     * Process that search for books that are in minimum stock
+     */
+    @Override
+    public List<Book> minimumStock() {
+        return bookRepository.getBooksInMinimumStock();
     }
 
 }

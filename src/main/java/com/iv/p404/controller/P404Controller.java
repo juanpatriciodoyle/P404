@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @Log
@@ -35,6 +36,9 @@ public class P404Controller implements P404ControllerApi {
         return new ResponseEntity<>(savedBook.get(), HttpStatus.ACCEPTED);
     }
 
+    /**
+     * Creates and returns a new Customer
+     * */
     @Override
     public ResponseEntity<Customer> saveCustomer(Customer customer) {
         Optional<Customer> savedBook = customerService.save(customer);
@@ -42,6 +46,9 @@ public class P404Controller implements P404ControllerApi {
         return new ResponseEntity<>(savedBook.get(), HttpStatus.ACCEPTED);
     }
 
+    /**
+     * Function that represents the operation of renting a book by a specific customer
+     * */
     @Override
     public ResponseEntity<String> rent(Integer customerId, Integer bookId) {
         Optional<Book> bookRented = bookService.rent(bookId);
@@ -54,6 +61,9 @@ public class P404Controller implements P404ControllerApi {
 
     }
 
+    /**
+     * Function that represents the operation of returning a book by a certain customer
+     * */
     @Override
     public ResponseEntity<String> returnBook(Integer customerId, Integer bookId) {
         ReturnTO returnCustomer = customerService.returnBook(customerId, bookId);
@@ -66,16 +76,35 @@ public class P404Controller implements P404ControllerApi {
         return new ResponseEntity<>("Book returned", HttpStatus.ACCEPTED);
     }
 
+    /**
+     * Returns books that are in minimum stock
+     * */
+    @Override
+    public ResponseEntity<List<Book>> minimumStock() {
+        List<Book> bookList = bookService.minimumStock();
+        if (bookList.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(bookList, HttpStatus.ACCEPTED);
+    }
+
+    /**
+     * Degrade Standard books
+     * */
     @Scheduled(fixedDelay = 86400000)
     private void standardDegrade() {
         bookService.degrade(BookType.Standard);
     }
 
+    /**
+     * Degrade Comic books
+     * */
     @Scheduled(fixedDelay = 43200000)
     private void comicDegrade() {
         bookService.degrade(BookType.Comics);
     }
 
+    /**
+     * Enhance Collector's Edition books
+     * */
     @Scheduled(fixedDelay = 86400000)
     private void enhance() {
         bookService.enhance(BookType.CollectorEdition);

@@ -4,6 +4,7 @@ import com.iv.p404.model.Book;
 import com.iv.p404.model.BookType;
 import com.iv.p404.to.ReturnTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
@@ -12,4 +13,5 @@ public interface BookService {
     ReturnTO returnBook(Integer id);
     void degrade(BookType bookType);
     void enhance(BookType bookType);
+    List<Book> minimumStock();
 }

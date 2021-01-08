@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @RequestMapping(path = "/bookToHome")
 public interface P404ControllerApi {
 
@@ -32,10 +34,9 @@ public interface P404ControllerApi {
             method = RequestMethod.POST)
     ResponseEntity<String> returnBook(@RequestParam(name = "customer") Integer customerId, @RequestParam(name = "book") Integer bookId);
 
-
-
-
-
-
+    @RequestMapping(value = "/minimumStock",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<List<Book>> minimumStock();
 
 }
