@@ -65,6 +65,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void degradeBooks() {
         bookRepository.degrade();
+        bookRepository.deleteOldBooks();
     }
 
 }

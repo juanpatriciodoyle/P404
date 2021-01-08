@@ -11,7 +11,9 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     @Query(value = "SELECT book FROM Book book where book.id = ?1 and book.quantity >= 1")
     Optional<Book> getAvailableBookById(Integer id);
     Optional<Book> getBookById(Integer id);
-    @Query(value = "UPDATE Book SET quality = quality-1")
+    @Query(value = "UPDATE Book SET quality = quality-1 where quality > 0")
     Optional<Book> degrade();
+    @Query(value = "DELETE FROM Book book where book.quality <= 0")
+    Optional<Book> deleteOldBooks();
 
 }
