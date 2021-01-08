@@ -5,21 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 @Entity
-public class Book {
+public class Customer {
     @Id
     private Integer id;
-    private String title;
-    private Integer quantity;
-    private Integer quality;
-    private BookType bookType;
-    private Integer minimumStock;
-
+    private String name;
+    @OneToMany
+    private List<Book> bookList;
 }
